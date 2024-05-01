@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.oshyun.bbs.mapper.EmployeeMapper">
+    <insert id="insertEmployee" parameterType="com.oshyun.bbs.domain.Employee" >
+    	<selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+		    SELECT IFNULL(MAX(id+1),1) FROM employee
+		</selectKey>
+        INSERT INTO employee ( id, firstname, lastname, email)
+        VALUES ( #{id},  #{firstName}, #{lastName}, #{email})
+    </insert>
+    <update id="updateEmployee" parameterType="com.oshyun.bbs.domain.Employee">
+    	UPDATE employee SET firstname=#{firstName}, lastname=#{lastName}, email=#{email}
+    	WHERE ID = #{id}
+    </update>
+    <delete id="deleteEmployee" parameterType="Long">
+    	DELETE FROM employee WHERE ID = #{id}
+    </delete>
+    <select id="findById" parameterType="Long" resultType="com.oshyun.bbs.domain.Employee">
+    	SELECT * FROM employee WHERE id = #{id}
+    </select>
+    <select id="findByName" parameterType="String" resultType="com.oshyun.bbs.domain.Employee">
+    	SELECT * FROM employee WHERE firstname = #{name}
+    </select>
+    <select id="getEmployeeList" resultMap="employeeResultMap">
+    	SELECT * FROM employee
+    </select>
+    
+    <resultMap id="employeeResultMap" type="com.oshyun.bbs.domain.Employee">
+	    <id property="id" column="id"/>
+	    <result property="firstName" column="firstname"/>
+	    <result property="lastName" column="lastname"/>
+	    <result property="email" column="email"/>
+	</resultMap>
+    
+</mapper>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        #header {
+            height: 35px;
+            background-color: #2828287d;
+            line-height: 35px;
+            color: white;
+            text-align: left;
+        }
+        #header p {
+            padding-left: 30px;
+        }
+        #content {
+            width: 800px;
+            margin: 0 auto;
+            height: 100%;
+        }
+        #content #title {
+            text-align: center;
+            font-weight: bold;
+            font-size:1.6em;
+            padding-top:50px;
+        }
+        #content #tabs {
+            width:800px;
+            margin:10 auto;
+        }
+
+        #btn {margin-top:25px;  margin-bottom:5px;}
+
+        #btn a {
+            display: inline-block;
+            width: 120px; height:25px;
+            font-size: 12px;
+            text-align: center;
+            line-height: 25px;
+            color:white;
+            border-radius: 5px;
+            background-color: rgb(57, 51, 117);
+        }
+
+        table { border:1px solid gray; border-collapse: collapse; border-spacing: 0}
+        table th, td { border: 1px solid #cccccc; height: 30px; line-height: 30px;  }
+        table th { width: 200px; font-size:0.9em; }
+        table td { text-align: left; padding-left:10px;  }
+
+        #tabs ul { overflow: hidden;  }
+        #tabs ul li{ list-style: none; float: left; }
+        #tabs ul li a {
+            padding: 2px; margin:3px;
+            font-size: 11px;
+            width:45px; height:20px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+        }
+
+        #tabs ul li:nth-child(1) a {
+            background-color: #21768b;
+        }
+        #tabs ul li:nth-child(2) a {
+            background-color: #a829a8;
+        }
+        #tabs ul li:nth-child(3) a {
+            background-color: #222222e0;
+        }
+    </style>
+<script>
+function addEmployee() {
+	window.location.href="/employee/employeeForm"
+}
+function deleteEmployee(id) {
+	if(confirm("삭제하시겠습니까?")) {
+		var url = "/employee/delete";		
+		url = url + "?id="+id;		
+		location.href = url;
+	}
+}
+function viewEmployee(id) {
+	var url = "/employee/view";		
+	url = url + "?id="+id;		
+	location.href = url;
+}
+</script>
+<body>
+    <header>
+        <div id="wrap">
+            <div id="header"><p>Hello ECS</p></div>
+        </div>
+        <div id="content">
+            <div id="title">
+                Employee List
+            </div>
+            <div id="btn">
+                <a href="javascript:void(0)" onclick="addEmployee()">Add Employee</a>
+            </div>
+            <div id="tabs">
+                <table>
+                    <tr>
+                    <th>Employee First Name</th>
+                    <th>Employee Last Name</th>
+                    <th>Employee Email</th>
+                    <th>Actions</th>
+                    </tr>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.firstName}"></td>
+                        <td th:text="${employee.lastName}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td>
+                            <ul>
+                                <li><a th:href="@{/employee/updateForm( id=${employee.id} )}">Update</a></li>
+                                <li><a th:href="'javascript:deleteEmployee(\'' + ${employee.id} + '\')'">Delete</a></li>
+                                <li><a th:href="'javascript:viewEmployee(\'' + ${employee.id} + '\')'">View</a></li>
+                            </ul>
+
+                        </td>
+                    </tr>
+                </table>
+            </id>
+        </div>
+    </header>
+    <section>
+
+    </section>
+    <footer>
+
+    </footer>
+
+</body>
+</html>
