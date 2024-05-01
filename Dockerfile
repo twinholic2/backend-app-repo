@@ -1,5 +1,5 @@
 # 1. Java 8을 기반으로 하는 Docker 이미지를 사용합니다.
-FROM openjdk:8-jdk-alpine
+FROM openjdk:17-jdk-slim
 
 ENV LC_ALL=C.UTF-8
 ENV TZ=Asia/Seoul
