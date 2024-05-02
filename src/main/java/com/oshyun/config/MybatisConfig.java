@@ -79,7 +79,7 @@ public class MybatisConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-        	.allowedOrigins("http://eks.oshyun.com");
+        	.allowedOrigins("http://eks.oshyun.com").allowedOrigins("https://eks.oshyun.com");
             //.allowedOrigins("http://localhost:3000");
     }
 }
